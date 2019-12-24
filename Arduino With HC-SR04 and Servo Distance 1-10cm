@@ -15,6 +15,7 @@ void setup() {
   Serial.begin(9600);
   myservo.attach(12);
 }
+
 void loop() {
   digitalWrite(trigPin, 0);
   delayMicroseconds(2);
@@ -27,15 +28,21 @@ void loop() {
   Serial.print("Distance : ");
   Serial.println(distance);
   myservo.write(0);
-  if (safetyDistance >= 11) {
-    digitalWrite(buzzer, 0);
+  if (safetyDistance <= 10) {
+    digitalWrite(buzzer, 1);
     digitalWrite(led, 1);
     myservo.write(90);
+    delay(1000);
+    digitalWrite(buzzer, 0);
+    digitalWrite(led, 0);
+    myservo.write(90);
+    delay(5000);
   }
   else {
-    digitalWrite(buzzer, 1);
+    digitalWrite(buzzer, 0);
     digitalWrite(led, 0);
-    delay(5000);
     myservo.write(0);
+
   }
+
 }
